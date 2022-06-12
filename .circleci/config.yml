@@ -318,7 +318,7 @@ jobs:
             
   notify_on_success:
     docker:
-      - image: circleci/base
+      - image: cimge/base
     steps:
       - slack/notify:
           event: pass
