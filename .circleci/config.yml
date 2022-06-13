@@ -234,7 +234,7 @@ jobs:
           name: Configure server
           command: |
             ansible-playbook -i inventory.txt configure-server.yml
-      - destroy-environment
+      - destroy_environment
       # Here's where you will add some code to rollback on failure      
 
 #   run-migrations:
