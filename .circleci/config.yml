@@ -218,13 +218,18 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: cimg/base:2022.06
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
       - add_ssh_keys:
           fingerprints: ["de:92:d8:f6:36:d8:f4:57:e5:de:f6:ec:e2:49:de:38"] # You can get this ID in the section where you registered the SSH Key
       - attach_workspace:
           at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            # install the dependencies needed for your playbook
+            apk add --update ansible 
       - run:
           name: configure server
           command: |
