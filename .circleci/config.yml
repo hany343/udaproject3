@@ -204,25 +204,26 @@ jobs:
             - project/.circleci/ansible/inventory.txt
       # Here's where you will add some code to rollback on failure      
 
-#   configure-infrastructure:
-#     docker:
-#       - image: python:3.7-alpine3.11
-#     steps:
-#       - checkout
-#       - add_ssh_keys:
-#           fingerprints: ["de:92:d8:f6:36:d8:f4:57:e5:de:f6:ec:e2:49:de:38"] # You can get this ID in the section where you registered the SSH Key
-#       # attach workspace
-#       - run:
-#           name: Install dependencies
-#           command: |
-#             apk add --update ansible
-#             exit 1
-#       - run:
-#           name: Configure server
-#           command: |
-#             ansible-playbook -i inv.txt main4.yml --key-file ans1.pem
-#             exit 1
-#       # Here's where you will add some code to rollback on failure      
+  configure-infrastructure:
+    docker:
+      - image: cimg/base:2022.06
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["de:92:d8:f6:36:d8:f4:57:e5:de:f6:ec:e2:49:de:38"] # You can get this ID in the section where you registered the SSH Key
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: configure server
+          command: |
+            cd .circleci/ansible
+            cat inventory.txt
+      - run:
+          name: Configure server
+          command: |
+            ansible-playbook -i inventory.txt configure-server.yml
+      - destroy-environment
+      # Here's where you will add some code to rollback on failure      
 
 #   run-migrations:
 #     docker:
@@ -373,8 +374,8 @@ workflows:
           filters:
             branches:
               only: [main]
-      # - configure-infrastructure:
-      #     requires: [deploy-infrastructure]
+      - configure-infrastructure:
+          requires: [deploy-infrastructure]
       # - run-migrations:
       #     requires: [configure-infrastructure]
       # - deploy-frontend:
