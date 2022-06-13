@@ -231,13 +231,10 @@ jobs:
             # install the dependencies needed for your playbook
             apk add --update ansible 
       - run:
-          name: configure server
+          name: Configure server
           command: |
             cd .circleci/ansible
             cat inventory.txt
-      - run:
-          name: Configure server
-          command: |
             ansible-playbook -i inventory.txt configure-server.yml
       - destroy_environment
       # Here's where you will add some code to rollback on failure      
