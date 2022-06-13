@@ -204,6 +204,17 @@ jobs:
             - project/.circleci/ansible/inventory.txt
       # Here's where you will add some code to rollback on failure      
 
+ # Exercise - Rollback
+    destroy_environment:
+      steps:
+        - run:
+            name: Destroy environment
+            # ${CIRCLE_WORKFLOW_ID} is a Built-in environment variable 
+            # ${CIRCLE_WORKFLOW_ID:0:5} takes the first 5 chars of the variable CIRCLE_CI_WORKFLOW_ID 
+            when: on_fail
+            command: |
+              aws cloudformation delete-stack --stack-name udaproject3-frontend-${CIRCLE_WORKFLOW_ID:0:7}
+          
   configure-infrastructure:
     docker:
       - image: cimg/base:2022.06
@@ -222,7 +233,7 @@ jobs:
           name: Configure server
           command: |
             ansible-playbook -i inventory.txt configure-server.yml
-      - destroy_environment
+      - destroy-environment
       # Here's where you will add some code to rollback on failure      
 
 #   run-migrations:
