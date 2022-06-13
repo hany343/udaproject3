@@ -29,6 +29,15 @@ commands:
             sudo apt install software-properties-common
             sudo add-apt-repository --yes --update ppa:ansible/ansible
             sudo apt install ansible
+  install_nodejs:
+    description: install nodejs 13
+    steps:
+      - run:
+          name: install nodejs 13
+          command: |
+            curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -F bash-
+            sudo apt install -y nodejs
+
    # Exercise - Rollback
   destroy_environment:
     steps:
@@ -228,7 +237,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: cimage/node:13.8.0
+      - image: - image: circleci/node:13.8.0
     steps:
       - checkout
       - install_awscli
@@ -383,8 +392,8 @@ workflows:
               only: [main]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
-      # - run-migrations:
-      #     requires: [configure-infrastructure]
+      - run-migrations:
+          requires: [configure-infrastructure]
       # - deploy-frontend:
       #     requires: [run-migrations]
       # - deploy-backend:
