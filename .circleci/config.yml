@@ -327,9 +327,9 @@ jobs:
       - run:
           name: deploy backend
           command: |
-            set TYPEORM_MIGRATIONS_DIR=./migrations
-            set TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
-            set TYPEORM_MIGRATIONS=./migrations/*.ts
+            export TYPEORM_MIGRATIONS_DIR=./migrations
+            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
+            export TYPEORM_MIGRATIONS=./migrations/*.ts
 
             cd .circleci/ansible
             cat inventory.txt

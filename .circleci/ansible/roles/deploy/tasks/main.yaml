@@ -1,8 +1,7 @@
-
 ---
-- name: "crate backend app directory"
+- name: "create backend app directory"
   file:
-    path: ~/beckend-app
+    path: ~/backend-app
     state: directory
 
 - name: "inarchive backend file"
