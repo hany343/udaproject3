@@ -347,10 +347,6 @@ jobs:
       - install_awscli
       - install_nodejs
       - run:
-          name: Get backend url
-          command: |
-            # your code here
-      - run:
           name: Backend smoke test.
           command: |
             BACKEND_PUBLIC_IP=$(aws ec2 describe-instances \
@@ -361,9 +357,9 @@ jobs:
             echo "API_URL=http://${BACKEND_PUBLIC_IP}:3030" >> frontend/.env
             if curl -s $API_URL/api/status | grep "ok"
             then
-              exit 0
-            else
               exit 1
+            else
+              exit 2
             fi 
       - run:
           name: Frontend smoke test.
