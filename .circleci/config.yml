@@ -346,11 +346,6 @@ jobs:
       - checkout
       - install_awscli
       - install_nodejs
-      - run: 
-          name: Install dependencies
-          command: |
-            apk add --update curl
-            # your code here
       - run:
           name: Get backend url
           command: |
