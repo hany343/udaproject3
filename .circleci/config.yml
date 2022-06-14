@@ -35,8 +35,8 @@ commands:
       - run:
           name: install nodejs 13
           command: |
-            curl -SL https://deb.nodesource.com/setup_13.x | sudo -E bash-
-            sudo apt install -y nodejs
+            curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+            sudo apt-get install -y nodejs
 
    # Exercise - Rollback
   destroy_environment:
