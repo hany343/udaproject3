@@ -40,6 +40,10 @@ commands:
 
    # Exercise - Rollback
   destroy_environment:
+    parameters:
+      WorkflowID;
+        type: string
+        default: ${CIRCLE_WORKFLOW_ID:0:7}
     steps:
       - run:
           name: Destroy environment
@@ -48,7 +52,7 @@ commands:
           when: on_fail
           command: |
             aws cloudformation delete-stack --stack-name udaproject3-frontend-${CIRCLE_WORKFLOW_ID:0:7}
-
+            aws s3 rm s3://udaproject3-<<parameters.WorkflowID>> --recursive
             aws cloudformation delete-stack --stack-name udaproject3-backendend-${CIRCLE_WORKFLOW_ID:0:7}
      
   revert-migrations:
