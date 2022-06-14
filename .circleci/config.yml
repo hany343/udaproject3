@@ -48,7 +48,7 @@ commands:
           when: on_fail
           command: |
             aws cloudformation delete-stack --stack-name udaproject3-frontend-${CIRCLE_WORKFLOW_ID:0:7}
-            
+
             aws cloudformation delete-stack --stack-name udaproject3-backendend-${CIRCLE_WORKFLOW_ID:0:7}
      
   revert-migrations:
@@ -56,7 +56,7 @@ commands:
     parameters:
       WorkflowID:
         type: string 
-        default: wirkid  
+        default: ${CIRCLE_WORKFLOW_ID:0:7} 
     steps:
       - run:
           name: Revert migrations
