@@ -53,7 +53,8 @@ commands:
     description: Revert the last migration if successfully run in the current workflow.
     parameters:
       WorkflowID:
-        type: string   
+        type: string 
+        default: wirkid  
     steps:
       - run:
           name: Revert migrations
