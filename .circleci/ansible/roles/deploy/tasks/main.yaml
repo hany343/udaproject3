@@ -23,7 +23,7 @@
 
 - name: print message
   debug:
-    msg: "{{execute_node.stdout_lines"
+    msg: "{{execute_node.stdout_lines}}"
 
 - name: "configure pm2 as a service"
   become: true
