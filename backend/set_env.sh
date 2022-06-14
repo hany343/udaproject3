@@ -1,9 +1,9 @@
-export NODE_ENV=production
+set NODE_ENV=production
 set VERSION=1
 set TYPEORM_CONNECTION=postgres
 set TYPEORM_MIGRATIONS_DIR=./migrations
 set TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts;.js}
-set TYPEORM_MIGRATIONS=./migrations/*{.ts;.js}
+set TYPEORM_MIGRATIONS=./migrations/*.ts
 set TYPEORM_HOST=localhost
 set TYPEORM_PORT=5532
 set TYPEORM_USERNAME=postgres
