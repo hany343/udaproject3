@@ -399,7 +399,7 @@ jobs:
               --parameter-overrides WorkflowID-"${CIRCLE_WORKFLOW_ID:0:7}"
               --stack-name InitialSack
       - destroy_environment
-      - revert_migrations
+      - revert-migrations
 # cleanup:
 #     docker:
 #       - image: amazon/aws-cli
