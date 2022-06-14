@@ -41,7 +41,7 @@ commands:
    # Exercise - Rollback
   destroy_environment:
     parameters:
-      WorkflowID;
+      WorkflowID:
         type: string
         default: ${CIRCLE_WORKFLOW_ID:0:7}
     steps:
