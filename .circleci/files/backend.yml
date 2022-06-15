@@ -29,7 +29,7 @@ Resources:
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       KeyName: ans2 
-      ImageId: ami-0c4f7023847b90238
+      ImageId: ami-09d56f8956ab235b3
       Tags:
         - Key: Name
           Value: !Sub backend-${ID}
