@@ -223,7 +223,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ["de:92:d8:f6:36:d8:f4:57:e5:de:f6:ec:e2:49:de:38"] # You can get this ID in the section where you registered the SSH Key
+          fingerprints: ["a4:d6:ad:74:d6:15:8d:35:f6:6e:ee:54:34:5c:5a:a5"] # You can get this ID in the section where you registered the SSH Key
       - attach_workspace:
           at: ~/
       - run:
@@ -305,7 +305,7 @@ jobs:
       - install_ansible
       - install_nodejs
       - add_ssh_keys:
-          fingerprints: ["de:92:d8:f6:36:d8:f4:57:e5:de:f6:ec:e2:49:de:38"] # You can get this ID in the section where you registered the SSH Key
+          fingerprints: ["a4:d6:ad:74:d6:15:8d:35:f6:6e:ee:54:34:5c:5a:a5"] # You can get this ID in the section where you registered the SSH Key
       - attach_workspace:
           at: ~/
       - restore_cache:
