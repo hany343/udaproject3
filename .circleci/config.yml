@@ -65,7 +65,7 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            SUCCESS=$(curl --insecure https://kvdb.io/C7nZFbcXpDgTGoyFjbdeHH/migration_<< parameters.workflow_id >>)
+            SUCCESS=$(curl --insecure https://kvdb.io/C7nZFbcXpDgTGoyFjbdeHH/migration_<<parameters.workflow_id>>)
             if [[$SUCCESS == 1]]; 
             then
               cd ~/project/backend
@@ -337,8 +337,10 @@ jobs:
             cd .circleci/ansible
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
-      - destroy_environment
-      - revert-migrations
+      - destroy_environment:
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+      - revert-migrations:
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
       # Here's where you will add some code to rollback on failure  
 
   smoke-test:
