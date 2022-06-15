@@ -344,7 +344,7 @@ jobs:
 
   smoke-test:
     docker:
-      - image: cimg/base:2022.06
+      - image: cimg/base:stable
     steps:
       - checkout
       - install_awscli
@@ -421,15 +421,15 @@ jobs:
             export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
             --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
             echo Stack names: "${STACKS[@]}"
-            export OldWorkflowID=$(curl --insecure https://kvdb.io/YLTX6K5V1r7UY1NrHHKrHo/old_workflowid)
+            export OldWorkflowID=$(curl --insecure https://kvdb.io/C7nZFbcXpDgTGoyFjbdeHH/old_workflowid)
             echo Old Workflow ID: $OldWorkflowID  
 
             if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
             then
               echo "-------------Cleaning up old resources-------------"
-              aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
-              aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID}"
-              aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID}"
+              aws s3 rm "s3://udaproject-${OldWorkflowID}" --recursive
+              aws cloudformation delete-stack --stack-name "udaproject-backend-${OldWorkflowID}"
+              aws cloudformation delete-stack --stack-name "udaproject-frontend-${OldWorkflowID}"
             else
               echo "-------------Nothing to Cleanup-------------"
             fi
