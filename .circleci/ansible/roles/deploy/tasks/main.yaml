@@ -1,31 +1,23 @@
----
-- name: "create backend app directory"
+- name: Create Backend Directory
   file:
-    path: ~/backend-app
+    path: /home/ubuntu/backend
     state: directory
 
-- name: "inarchive backend file"
+- name: Extract artifact.tar.gz to EC2 
   unarchive:
     src: artifact.tar.gz
-    dest: ~/backend-app
+    dest: /home/ubuntu/backend
 
-- name: "installing node dependencies"
-  shell: |
-    cd ~/backend-app
-    npm i
-- name: "Execute node app"
-  shell: |
-    cd ~/backend-app/dist
-    pm2 stop default
-    pm2 start main.js
+- name: "install npm"
+  become: true
+  apt:
+    name: npm
+    state: latest
+    update_cache: yes
 
-  register: execute_node
-
-- name: print message
-  debug:
-    msg: "{{execute_node.stdout_lines}}"
-
-- name: "configure pm2 as a service"
+- name: Start the app
   become: true
   shell: |
-    env PATH=$PATH:/usr/local/bin pm2 startup systemd -u -ubuntu --hp /home/ubuntu
+    cd /home/ubuntu/backend/dist
+    pm2 stop default
+    pm2 start -f main.js
