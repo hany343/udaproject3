@@ -59,14 +59,13 @@ commands:
     description: Revert the last migration if successfully run in the current workflow.
     parameters:
        workflow_id:
-        type: string 
-        default: ${CIRCLE_WORKFLOW_ID:0:7} 
+        type: string  
     steps:
       - run:
           name: Revert migrations
           when: on_fail
           command: |
-            SUCCESS =$(curl --insecure https://kvdb.io/C7nZFbcXpDgTGoyFjbdeHH/migration_<< parameters.workflow_id >>)
+            SUCCESS=$(curl --insecure https://kvdb.io/C7nZFbcXpDgTGoyFjbdeHH/migration_<< parameters.workflow_id >>)
             if [[$SUCCESS == 1]]; 
             then
               cd ~/project/backend
@@ -403,7 +402,7 @@ jobs:
             --template-file .circleci/files/cloudfront.yml \
             --stack-name InitialStack \
             --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
-            --tags project=udapeople
+            --tags project=udaproject3
       - destroy_environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
       - revert-migrations:
@@ -427,9 +426,9 @@ jobs:
             if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
             then
               echo "-------------Cleaning up old resources-------------"
-              aws s3 rm "s3://udaproject-${OldWorkflowID}" --recursive
-              aws cloudformation delete-stack --stack-name "udaproject-backend-${OldWorkflowID}"
-              aws cloudformation delete-stack --stack-name "udaproject-frontend-${OldWorkflowID}"
+              aws s3 rm "s3://udaproject3-${OldWorkflowID}" --recursive
+              aws cloudformation delete-stack --stack-name "udaproject3-backend-${OldWorkflowID}"
+              aws cloudformation delete-stack --stack-name "udaproject3-frontend-${OldWorkflowID}"
             else
               echo "-------------Nothing to Cleanup-------------"
             fi
