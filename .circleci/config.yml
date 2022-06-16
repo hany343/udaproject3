@@ -369,12 +369,11 @@ jobs:
           command: |
             URL=http://udaproject3-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-1.amazonaws.com
             echo ${URL}
-            echo $URL
             if curl -s "$URL" | grep "Welcome"
             then
-              exit 0
+              exit 1
             else
-              echo "fail"
+              exit 2
             fi
       - destroy_environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
