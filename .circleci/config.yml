@@ -369,7 +369,7 @@ jobs:
           command: |
             URL=http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3.amazonaws.com
             echo ${URL}
-            if curl -s $URL | grep "Welcome"
+            if curl -L $URL | grep "Welcome"
             then
               exit 0
             
@@ -402,11 +402,7 @@ jobs:
             --template-file .circleci/files/cloudfront.yml \
             --stack-name InitialStack \
             --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
-      - destroy_environment:
-          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
-      - revert-migrations:
-          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}" 
-  
+    
   cleanup:
     docker:
       - image: cimg/base:stable
