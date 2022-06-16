@@ -373,7 +373,8 @@ jobs:
             if curl -s "$URL" | grep "Welcome"
             then
               exit 0
-            
+            else
+              echo "fail"
             fi
       - destroy_environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
@@ -403,6 +404,7 @@ jobs:
             --template-file .circleci/files/cloudfront.yml \
             --stack-name InitialStack \
             --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
+            --tags project=udapeople
       
   cleanup:
     docker:
